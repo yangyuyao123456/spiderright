@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ks.spider.mapper.GoodsInfoMapper">
+
+    <!--添加商品信息-->
+    <insert id="addGoodsInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_spider (goods_name,sku,url,pic) values(#{goodsName},#{sku},#{url},#{pic})
+    </insert>
+
+    <!--模糊查询商品名称-->
+    <select id="getGoodsInfoByName" resultType="com.ks.spider.entity.GoodsInfo">
+        SELECT id, goods_name,goods_price,url from tb_jd_data where LOCATE(#{name},goods_name)
+        limit #{pageSize} offset #{offset}
+    </select>
+</mapper>
